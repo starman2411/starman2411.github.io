@@ -28,9 +28,8 @@
     let tg = window.Telegram.WebApp;
     tg.expand();
     ar = document.getElementById('123');
-    ar.innerHTML = window.location.search;
-;
-;
+    ar.innerHTML = public_id;
+
     var payments = new cp.CloudPayments();
 
     payments.oncomplete = (result) => {
@@ -40,8 +39,8 @@
     var data = { //содержимое элемента data
         CloudPayments: {
             recurrent: {
-                        interval: interval,
-                        period: 1,
+                interval: interval,
+                period: 1,
             }
         }
     };
