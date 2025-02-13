@@ -17,9 +17,16 @@
 <h1 id="123">123</h1>
 </body>
 <script type="text/javascript">
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const sub_description = urlParams.get('sub_description')
+    const amount = urlParams.get('amount')
+    const interval = urlParams.get('interval')
+    const payment_id = urlParams.get('payment_id')
+    const public_id = urlParams.get('public_id')
+
     let tg = window.Telegram.WebApp;
     tg.expand();
-    console.log(tg.initDataUnsafe.user.id);
     ar = document.getElementById('123');
     ar.innerHTML = window.location.search;
 ;
@@ -33,19 +40,19 @@
     var data = { //содержимое элемента data
         CloudPayments: {
             recurrent: {
-                        interval: 'Week',
+                        interval: interval,
                         period: 1,
             }
         }
     };
 
     payments.pay("charge", { // options
-        publicId: 'pk_07b344e2a8ac2ed58d6c093579079',
+        publicId: public_id,
         accountId: tg.initDataUnsafe.user.id,
-        description: 'Weekly subscription',
-        amount: 1,
+        description: sub_description,
+        amount: amount,
         currency: 'RUB',
-        invoiceId: 1234567,
+        invoiceId: payment_id,
         data: data
     }).then((result) => {
         // Объект типа WidgetResult
