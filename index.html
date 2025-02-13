@@ -17,49 +17,31 @@
 <h1 id="123">123</h1>
 </body>
 <script type="text/javascript">
-    Telegram.WebApp.expand();
-
     let tg = window.Telegram.WebApp;
+    tg.expand();
     console.log(tg.initDataUnsafe.user.id);
     ar = document.getElementById('123');
-    ar.innerHTML = tg.initDataUnsafe.user.id;
+    ar.innerHTML = window.Telegram.WebApp.initDataUnsafe.start_param
+;
     var payments = new cp.CloudPayments();
 
     payments.oncomplete = (result) => {
         console.log('result', result);
     }
 
-    var receipt = {
-                Items: [//товарные позиции
-
-                ],
-                taxationSystem: 0, //система налогообложения; необязательный, если у вас одна система налогообложения
-                email: 'nikitaf71@gmail.com', //e-mail покупателя, если нужно отправить письмо с чеком
-                phone: '89859621319', //телефон покупателя в любом формате, если нужно отправить сообщение со ссылкой на чек
-                isBso: false, //чек является бланком строгой отчетности
-                amounts: {
-                    electronic: 1.00, // Сумма оплаты электронными деньгами
-                    advancePayment: 0.00, // Сумма из предоплаты (зачетом аванса) (2 знака после запятой)
-                    credit: 0.00, // Сумма постоплатой(в кредит) (2 знака после запятой)
-                    provision: 0.00 // Сумма оплаты встречным предоставлением (сертификаты, др. мат.ценности) (2 знака после запятой)
-                }
-    };
-
     var data = { //содержимое элемента data
         CloudPayments: {
-            CustomerReceipt: receipt, //чек для первого платежа
             recurrent: {
                         interval: 'Week',
                         period: 1,
-                        customerReceipt: receipt //чек для регулярных платежей
             }
         }
     };
 
     payments.pay("charge", { // options
         publicId: 'pk_07b344e2a8ac2ed58d6c093579079',
-        accountId: 'user123',
-        description: 'Месячная подписка на TEST AI',
+        accountId: tg.initDataUnsafe.user.id,
+        description: 'Weekly subscription',
         amount: 1,
         currency: 'RUB',
         invoiceId: 1234567,
