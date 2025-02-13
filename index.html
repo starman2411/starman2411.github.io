@@ -19,12 +19,12 @@
 <script type="text/javascript">
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const sub_description = urlParams.get('sub_description')
-    const amount = urlParams.get('amount')
-    const interval = urlParams.get('interval')
-    const payment_id = urlParams.get('payment_id')
-    const public_id = urlParams.get('public_id')
-    const user_id = urlParams.get('user_id')
+    const sub_description = decodeURIComponent(urlParams.get('sub_description'))
+    const amount = decodeURIComponent(urlParams.get('amount'))
+    const interval = decodeURIComponent(urlParams.get('interval'))
+    const payment_id = decodeURIComponent(urlParams.get('payment_id'))
+    const public_id = decodeURIComponent(urlParams.get('public_id'))
+    const user_id = decodeURIComponent(urlParams.get('user_id'))
 
     let tg = window.Telegram.WebApp;
     tg.expand();
