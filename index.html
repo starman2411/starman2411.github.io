@@ -14,7 +14,13 @@
     Telegram.WebApp.ready();
 </script>
 <body>
-<h1 id="123">123</h1>
+<h2 id="1"></h2>
+<h2 id="2"></h2>
+<h2 id="3"></h2>
+<h2 id="4"></h2>
+<h2 id="5"></h2>
+<h2 id="6"></h2>
+<h1 id="7"></h1>
 </body>
 <script type="text/javascript">
     const queryString = window.location.search;
@@ -28,8 +34,13 @@
 
     let tg = window.Telegram.WebApp;
     tg.expand();
-    ar = document.getElementById('123');
-    ar.innerHTML = public_id;
+    document.getElementById('1').innerHTML = sub_description;
+    document.getElementById('2').innerHTML = amount;
+    document.getElementById('3').innerHTML = interval;
+    document.getElementById('4').innerHTML = payment_id;
+    document.getElementById('5').innerHTML = public_id;
+    document.getElementById('6').innerHTML = user_id;
+
 
     var payments = new cp.CloudPayments();
 
@@ -57,6 +68,8 @@
     }).then((result) => {
         // Объект типа WidgetResult
         console.log('result', result);
+        document.getElementById('6').innerHTML = result;
+
     });
 </script>
 </html>
