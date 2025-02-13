@@ -24,6 +24,7 @@
     const interval = urlParams.get('interval')
     const payment_id = urlParams.get('payment_id')
     const public_id = urlParams.get('public_id')
+    const user_id = urlParams.get('user_id')
 
     let tg = window.Telegram.WebApp;
     tg.expand();
@@ -47,7 +48,7 @@
 
     payments.pay("charge", { // options
         publicId: public_id,
-        accountId: tg.initDataUnsafe.user.id,
+        accountId: user_id,
         description: sub_description,
         amount: amount,
         currency: 'RUB',
