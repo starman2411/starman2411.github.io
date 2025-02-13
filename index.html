@@ -18,6 +18,8 @@
 </body>
 <script type="text/javascript">
     Telegram.WebApp.expand();
+    let tg = window.Telegram.WebApp;
+    console.log(tg.initDataUnsafe.user.id);
     var payments = new cp.CloudPayments();
 
     payments.oncomplete = (result) => {
