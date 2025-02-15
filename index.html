@@ -23,6 +23,14 @@
 <h1 id="7"></h1>
 </body>
 <script type="text/javascript">
+    function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const sub_description = decodeURIComponent(urlParams.get('sub_description'))
@@ -69,7 +77,15 @@
         // Объект типа WidgetResult
         console.log('result',  result);
         document.getElementById('7').innerHTML = JSON.stringify(result);
-
+        data = {success: false};
+        if ((result.type !== 'cancel')&&(result.type !== 'error')) {
+            if (result.status === 'success') {
+                data.success = true;
+            }
+        }
+        tg.sendData(JSON.stringify(data));
+        sleep(2000);
+        tg.close();
     });
 </script>
 </html>
