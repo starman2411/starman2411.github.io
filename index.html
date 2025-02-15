@@ -80,7 +80,7 @@
         // Объект типа WidgetResult
         console.log('result',  result);
         document.getElementById('7').innerHTML = JSON.stringify(result);
-        data = {success: false};
+        data = {success: false, more: '1'};
         if ((result.type !== 'cancel')&&(result.type !== 'error')) {
             if (result.status === 'success') {
                 data.success = true;
