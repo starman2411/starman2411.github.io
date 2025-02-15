@@ -25,13 +25,12 @@
 <script type="text/javascript">
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const sub_description = decodeURIComponent(urlParams.get('sub_description'))
-    const amount = decodeURIComponent(urlParams.get('amount'))
-    const interval = decodeURIComponent(urlParams.get('interval'))
-    const payment_id = decodeURIComponent(urlParams.get('payment_id'))
-    const public_id = decodeURIComponent(urlParams.get('public_id'))
-    const user_id = decodeURIComponent(urlParams.get('user_id'))
-
+    const sub_description = decodeURIComponent(urlParams.get('sub_description'));
+    const amount = decodeURIComponent(urlParams.get('amount'));
+    const interval = decodeURIComponent(urlParams.get('interval'));
+    const payment_id = decodeURIComponent(urlParams.get('payment_id'));
+    const public_id = decodeURIComponent(urlParams.get('public_id'));
+    const user_id = decodeURIComponent(urlParams.get('user_id'));
     let tg = window.Telegram.WebApp;
     tg.expand();
 
@@ -74,6 +73,19 @@
             data = {success: paymentResult.success, message: paymentResult.message, payment_options: options};
             tg.sendData(JSON.stringify(data));
         }
+    }).then((result) => {
+        tg.close();
+        // Объект типа WidgetResult
+        // console.log('result',  result);
+        // document.getElementById('7').innerHTML = JSON.stringify(result);
+        // data = {success: false, transactionId: ''};
+        // if ((result.type !== 'cancel')&&(result.type !== 'error')) {
+        //     if (result.status === 'success') {
+        //         data.success = true;
+        //         data.transactionId = result.data.transactionId;
+        //     }
+        // }
+        // tg.sendData(JSON.stringify(data));
     });
 
     // payments.pay("charge", { // options
