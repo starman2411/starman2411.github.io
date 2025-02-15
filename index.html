@@ -1,11 +1,8 @@
-<!--
-    Simple static Telegram WebApp. Does not verify the WebAppInitData, as a bot token would be needed for that.
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>python-telegram-bot Example WebApp</title>
+    <title>Subscription Payment</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
 
@@ -14,13 +11,6 @@
     Telegram.WebApp.ready();
 </script>
 <body>
-<h2 id="1"></h2>
-<h2 id="2"></h2>
-<h2 id="3"></h2>
-<h2 id="4"></h2>
-<h2 id="5"></h2>
-<h2 id="6"></h2>
-<h1 id="7"></h1>
 </body>
 <script type="text/javascript">
     const queryString = window.location.search;
@@ -31,22 +21,12 @@
     const payment_id = decodeURIComponent(urlParams.get('payment_id'));
     const public_id = decodeURIComponent(urlParams.get('public_id'));
     const user_id = decodeURIComponent(urlParams.get('user_id'));
-    let tg = window.Telegram.WebApp;
-    tg.expand();
 
+    Telegram.WebApp.expand();
 
+    let payments = new cp.CloudPayments();
 
-    // document.getElementById('1').innerHTML = sub_description;
-    // document.getElementById('2').innerHTML = amount;
-    // document.getElementById('3').innerHTML = interval;
-    // document.getElementById('4').innerHTML = payment_id;
-    // document.getElementById('5').innerHTML = public_id;
-    // document.getElementById('6').innerHTML = user_id;
-
-
-    var payments = new cp.CloudPayments();
-
-    var data = { //содержимое элемента data
+    let data = {
         CloudPayments: {
             recurrent: {
                 interval: interval,
@@ -55,59 +35,27 @@
         }
     };
 
-    payments.pay("charge", { // options
-        publicId: public_id,
-        accountId: user_id,
-        description: sub_description,
-        amount: parseInt(amount),
-        currency: 'RUB',
-        invoiceId: payment_id,
-        data: data
-    },
-    {
-        onSuccess: function (options) { // success
+    payments.pay("charge", {
+            publicId: public_id,
+            accountId: user_id,
+            description: sub_description,
+            amount: parseInt(amount),
+            currency: 'RUB',
+            invoiceId: payment_id,
+            data: data
         },
-        onFail: function (reason, options) { // fail
-        },
-        onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
-            data = {success: paymentResult.success, message: paymentResult.message, payment_options: options};
-            tg.sendData(JSON.stringify(data));
-        }
-    }).then((result) => {
-        tg.close();
-        // Объект типа WidgetResult
-        // console.log('result',  result);
-        // document.getElementById('7').innerHTML = JSON.stringify(result);
-        // data = {success: false, transactionId: ''};
-        // if ((result.type !== 'cancel')&&(result.type !== 'error')) {
-        //     if (result.status === 'success') {
-        //         data.success = true;
-        //         data.transactionId = result.data.transactionId;
-        //     }
-        // }
-        // tg.sendData(JSON.stringify(data));
+        {
+            onSuccess: function (options) { // success
+            },
+            onFail: function (reason, options) { // fail
+            },
+            onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
+                data = {success: paymentResult.success, message: paymentResult.message, payment_options: options};
+                Telegram.WebApp.sendData(JSON.stringify(data));
+            }
+        }).then((result) => {
+        Telegram.WebApp.close();
     });
 
-    // payments.pay("charge", { // options
-    //     publicId: public_id,
-    //     accountId: user_id,
-    //     description: sub_description,
-    //     amount: parseInt(amount),
-    //     currency: 'RUB',
-    //     invoiceId: payment_id,
-    //     data: data
-    // }).then((result) => {
-    //     // Объект типа WidgetResult
-    //     // console.log('result',  result);
-    //     // document.getElementById('7').innerHTML = JSON.stringify(result);
-    //     data = {success: false, transactionId: ''};
-    //     if ((result.type !== 'cancel')&&(result.type !== 'error')) {
-    //         if (result.status === 'success') {
-    //             data.success = true;
-    //             data.transactionId = result.data.transactionId;
-    //         }
-    //     }
-    //     tg.sendData(JSON.stringify(data));
-    // });
 </script>
 </html>
