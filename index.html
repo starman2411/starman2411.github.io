@@ -30,66 +30,69 @@
     currentDate = Date.now();
   } while (currentDate - date < milliseconds);
 }
-
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const sub_description = decodeURIComponent(urlParams.get('sub_description'))
-    const amount = decodeURIComponent(urlParams.get('amount'))
-    const interval = decodeURIComponent(urlParams.get('interval'))
-    const payment_id = decodeURIComponent(urlParams.get('payment_id'))
-    const public_id = decodeURIComponent(urlParams.get('public_id'))
-    const user_id = decodeURIComponent(urlParams.get('user_id'))
+    //
+    // const queryString = window.location.search;
+    // const urlParams = new URLSearchParams(queryString);
+    // const sub_description = decodeURIComponent(urlParams.get('sub_description'))
+    // const amount = decodeURIComponent(urlParams.get('amount'))
+    // const interval = decodeURIComponent(urlParams.get('interval'))
+    // const payment_id = decodeURIComponent(urlParams.get('payment_id'))
+    // const public_id = decodeURIComponent(urlParams.get('public_id'))
+    // const user_id = decodeURIComponent(urlParams.get('user_id'))
 
     let tg = window.Telegram.WebApp;
     tg.expand();
 
-    let startParam = window.Telegram.WebApp.initDataUnsafe.start_param
+    let startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
+    data = {success: true, more: '1'};
+    data.more = startParam;
+    tg.sendData(JSON.stringify(data));
+    //
+    // document.getElementById('1').innerHTML = sub_description;
+    // document.getElementById('2').innerHTML = amount;
+    // document.getElementById('3').innerHTML = interval;
+    // document.getElementById('4').innerHTML = payment_id;
+    // document.getElementById('5').innerHTML = public_id;
+    // document.getElementById('6').innerHTML = user_id;
 
-    document.getElementById('1').innerHTML = sub_description;
-    document.getElementById('2').innerHTML = amount;
-    document.getElementById('3').innerHTML = interval;
-    document.getElementById('4').innerHTML = payment_id;
-    document.getElementById('5').innerHTML = public_id;
-    document.getElementById('6').innerHTML = user_id;
 
-
-    var payments = new cp.CloudPayments();
-
-    payments.oncomplete = (result) => {
-        console.log('result', result);
-    }
-
-    var data = { //содержимое элемента data
-        CloudPayments: {
-            recurrent: {
-                interval: interval,
-                period: 1,
-            }
-        }
-    };
-
-    payments.pay("charge", { // options
-        publicId: public_id,
-        accountId: user_id,
-        description: sub_description,
-        amount: parseInt(amount),
-        currency: 'RUB',
-        invoiceId: payment_id,
-        data: data
-    }).then((result) => {
-        // Объект типа WidgetResult
-        console.log('result',  result);
-        document.getElementById('7').innerHTML = JSON.stringify(result);
-        data = {success: false, more: '1'};
-        if ((result.type !== 'cancel')&&(result.type !== 'error')) {
-            if (result.status === 'success') {
-                data.success = true;
-            }
-        }
-        data.more = startParam;
-        tg.sendData(JSON.stringify(data));
-        sleep(2000);
-        tg.close();
-    });
+    // var payments = new cp.CloudPayments();
+    //
+    // payments.oncomplete = (result) => {
+    //     console.log('result', result);
+    // }
+    //
+    // var data = { //содержимое элемента data
+    //     CloudPayments: {
+    //         recurrent: {
+    //             interval: interval,
+    //             period: 1,
+    //         }
+    //     }
+    // };
+    //
+    // payments.pay("charge", { // options
+    //     publicId: public_id,
+    //     accountId: user_id,
+    //     description: sub_description,
+    //     amount: parseInt(amount),
+    //     currency: 'RUB',
+    //     invoiceId: payment_id,
+    //     data: data
+    // }).then((result) => {
+    //     // Объект типа WidgetResult
+    //     console.log('result',  result);
+    //     document.getElementById('7').innerHTML = JSON.stringify(result);
+    //     data = {success: false, more: '1'};
+    //     if ((result.type !== 'cancel')&&(result.type !== 'error')) {
+    //         if (result.status === 'success') {
+    //             data.success = true;
+    //         }
+    //     }
+    //     data.more = startParam;
+    //     tg.sendData(JSON.stringify(data));
+    //     sleep(2000);
+    //     tg.close();
+    // });
 </script>
 </html>
