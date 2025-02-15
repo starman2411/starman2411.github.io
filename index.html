@@ -72,11 +72,11 @@
         // Объект типа WidgetResult
         // console.log('result',  result);
         // document.getElementById('7').innerHTML = JSON.stringify(result);
-        data = {success: false, transaction_id: ''};
+        data = {success: false, transactionId: ''};
         if ((result.type !== 'cancel')&&(result.type !== 'error')) {
             if (result.status === 'success') {
                 data.success = true;
-                data.transaction_id = result.transaction_id;
+                data.transactionId = result.data.transactionId;
             }
         }
         tg.sendData(JSON.stringify(data));
