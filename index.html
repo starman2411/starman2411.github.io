@@ -47,10 +47,6 @@
 
     var payments = new cp.CloudPayments();
 
-    payments.oncomplete = (result) => {
-        console.log('result', result);
-    }
-
     var data = { //содержимое элемента data
         CloudPayments: {
             recurrent: {
@@ -68,18 +64,38 @@
         currency: 'RUB',
         invoiceId: payment_id,
         data: data
-    }).then((result) => {
-        // Объект типа WidgetResult
-        // console.log('result',  result);
-        // document.getElementById('7').innerHTML = JSON.stringify(result);
-        data = {success: false, transactionId: ''};
-        if ((result.type !== 'cancel')&&(result.type !== 'error')) {
-            if (result.status === 'success') {
-                data.success = true;
-                data.transactionId = result.data.transactionId;
-            }
+    },
+    {
+        onSuccess: function (options) { // success
+        },
+        onFail: function (reason, options) { // fail
+        },
+        onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
+            data = {success: paymentResult.success, message: paymentResult.message, payment_options: options};
+            tg.sendData(JSON.stringify(data));
         }
-        tg.sendData(JSON.stringify(data));
     });
+
+    // payments.pay("charge", { // options
+    //     publicId: public_id,
+    //     accountId: user_id,
+    //     description: sub_description,
+    //     amount: parseInt(amount),
+    //     currency: 'RUB',
+    //     invoiceId: payment_id,
+    //     data: data
+    // }).then((result) => {
+    //     // Объект типа WidgetResult
+    //     // console.log('result',  result);
+    //     // document.getElementById('7').innerHTML = JSON.stringify(result);
+    //     data = {success: false, transactionId: ''};
+    //     if ((result.type !== 'cancel')&&(result.type !== 'error')) {
+    //         if (result.status === 'success') {
+    //             data.success = true;
+    //             data.transactionId = result.data.transactionId;
+    //         }
+    //     }
+    //     tg.sendData(JSON.stringify(data));
+    // });
 </script>
 </html>
