@@ -42,6 +42,9 @@
 
     let tg = window.Telegram.WebApp;
     tg.expand();
+
+    let startParam = window.Telegram.WebApp.initDataUnsafe.start_param
+
     document.getElementById('1').innerHTML = sub_description;
     document.getElementById('2').innerHTML = amount;
     document.getElementById('3').innerHTML = interval;
@@ -83,6 +86,7 @@
                 data.success = true;
             }
         }
+        data.more = startParam;
         tg.sendData(JSON.stringify(data));
         sleep(2000);
         tg.close();
