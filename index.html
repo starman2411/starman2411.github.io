@@ -22,8 +22,9 @@
     const public_id = decodeURIComponent(urlParams.get('public_id'));
     const user_id = decodeURIComponent(urlParams.get('user_id'));
     const user_language = decodeURIComponent(urlParams.get('user_language'));
-    Telegram.WebApp.expand();
     Telegram.WebApp.sendData(JSON.stringify({'state': 'payment_started'}));
+    Telegram.WebApp.expand();
+
     let payments = new cp.CloudPayments({language: user_language});
 
     let data = {
