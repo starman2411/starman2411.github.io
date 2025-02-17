@@ -23,7 +23,7 @@
     const user_id = decodeURIComponent(urlParams.get('user_id'));
     const user_language = decodeURIComponent(urlParams.get('user_language'));
     Telegram.WebApp.expand();
-
+    Telegram.WebApp.sendData(JSON.stringify({'state': 'payment_started'}));
     let payments = new cp.CloudPayments({language: user_language});
 
     let data = {
@@ -50,7 +50,7 @@
             onFail: function (reason, options) { // fail
             },
             onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
-                data = {success: paymentResult.success, message: paymentResult.message, payment_options: options};
+                data = {'state': 'payment_completed', success: paymentResult.success, message: paymentResult.message, payment_options: options};
                 Telegram.WebApp.sendData(JSON.stringify(data));
             }
         }).then((result) => {
