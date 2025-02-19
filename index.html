@@ -18,6 +18,7 @@
     const sub_description = decodeURIComponent(urlParams.get('sub_description'));
     const amount = decodeURIComponent(urlParams.get('amount'));
     const interval = decodeURIComponent(urlParams.get('interval'));
+    const period = decodeURIComponent(urlParams.get('period'));
     const payment_id = decodeURIComponent(urlParams.get('payment_id'));
     const public_id = decodeURIComponent(urlParams.get('public_id'));
     const user_id = decodeURIComponent(urlParams.get('user_id'));
@@ -30,7 +31,7 @@
         CloudPayments: {
             recurrent: {
                 interval: interval,
-                period: 1,
+                period: period,
             }
         }
     };
