@@ -20,8 +20,8 @@ body {
 }
   .crossword {
     display: grid;
-    grid-template-columns: repeat(11, 35px);
-    grid-template-rows: repeat(11, 35px);
+    grid-template-columns: repeat(11, 36px);
+    grid-template-rows: repeat(11, 36px);
     gap: 2px;
     margin: 10px;
 /*    margin-bottom: 20px;*/
@@ -30,7 +30,7 @@ body {
     position: relative;
     width: 35px;
     height: 35px;
-    border: 2px solid #333;
+    border: 1px solid #333;
     background: #fff;
 
 
@@ -50,8 +50,8 @@ body {
         #2d3237
     );
 
-    border: 1px solid black;
-    border-bottom: 2px solid #000;
+/*    border: 1px solid black;*/
+/*    border-bottom: 2px solid #000;*/
 
     color: #e5e5e5;
   }
@@ -255,7 +255,7 @@ button:active{
     flex-direction: column;
 /*    gap:8px;*/
 
-    background:rgb(150,130,40);
+    background:rgb(90,120,30);
 }
 
 .rgb-box-upper {
@@ -272,7 +272,7 @@ button:active{
     text-align:center;
 }
 .clue_image {
-    background-image: url("var4.png");
+    background-image: url("mosaic.png");
         width:454px;
     height:308px;
 
@@ -525,17 +525,17 @@ padding: 5px; font-size: 18}
         <div class="rgb-selector-wrapper">
             <div>
                 <label for="r">R: </label>
-                <input class="answer-input" type="number" min="0" max="255" value="150" id="r">
+                <input class="answer-input" type="number" min="0" max="255" value="90" id="r">
             </div>
             <div>
 
             <label for="g">G: </label>
-            <input class="answer-input" type="number" min="0" max="255" value="130" id="g">
+            <input class="answer-input" type="number" min="0" max="255" value="120" id="g">
             </div>
             <div>
 
             <label for="b">B: </label>
-            <input class="answer-input" type="number" min="0" max="255" value="40" id="b">
+            <input class="answer-input" type="number" min="0" max="255" value="30" id="b">
         </div>
         </div>
     </div>
@@ -552,7 +552,7 @@ padding: 5px; font-size: 18}
 </div>
 
 <div class="block opened-storage" style="left:970px; top:930px; width: 240px; height: 100px" id="opened-storage-block">
-    <a class="gift-url" href="123"></a>
+    <a class="gift-url" href="https://disk.yandex.ru/d/GpIEa_6ReFd95Q"></a>
 </div>  
 
 
@@ -628,7 +628,7 @@ padding: 5px; font-size: 18}
   <div class="cell black"></div>
   <div class="cell black"></div>
 
-  <div class="cell"><div class="number">1,3</div><input maxlength="1" data-letter="П"></div>
+  <div class="cell"><div class="number">1</div><input maxlength="1" data-letter="П"></div>
   <div class="cell"><input maxlength="1" data-letter="Е"></div>
   <div class="cell"><input maxlength="1" data-letter="Р"></div>
   <div class="cell"><input maxlength="1" data-letter="М"></div>
@@ -728,7 +728,7 @@ padding: 5px; font-size: 18}
   <div class="cell black"></div>
 </div>
 
-<div class="clues">
+<div class="clues" style="color: white">
   <div>
     <h3>По горизонтали:</h3>
     <p>1. Лучший город на Земле.</p>
@@ -877,9 +877,12 @@ function checkCrossword() {
   inputs.forEach(input => {
     if (input.dataset.letter && input.value.toUpperCase() !== input.dataset.letter) {
       input.style.background = '#f88';
+        input.style.color = "black";
+
       correct = false;
     } else if(input.dataset.letter) {
       input.style.background = '#8f8';
+      input.style.color = "black";
     }
   });
   if (correct) {
