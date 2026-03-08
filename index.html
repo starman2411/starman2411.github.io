@@ -874,7 +874,15 @@ const scene = document.querySelector(".scene");
 function checkCrossword() {
   const inputs = document.querySelectorAll('.cell input');
   let correct = true;
+
+    let nums = document.querySelectorAll(".number");
+    console.log(nums);
+    nums.forEach(num => {
+        num.style.color = "black";});
+
   inputs.forEach(input => {
+
+
     if (input.dataset.letter && input.value.toUpperCase() !== input.dataset.letter) {
       input.style.background = '#f88';
         input.style.color = "black";
@@ -889,7 +897,7 @@ function checkCrossword() {
     let locker = document.getElementById("lock5");
     locker.classList = ["unlocked"];
                 lock5_opened += 1;
-                    if (lock1_opened * lock2_opened * lock3_opened * lock4_opened * lock5_opened * lock6_opened == 6) {
+                    if (lock1_opened * lock2_opened * lock3_opened * lock4_opened * lock5_opened * lock6_opened == 1) {
         let opened_storage = document.getElementById("opened-storage-block");
         let closed_storage = document.getElementById("closed-storage-block");
         opened_storage.style.display = "block";
@@ -993,7 +1001,7 @@ function check_answer(id) {
         }
     }
 
-    if (lock1_opened * lock2_opened * lock3_opened * lock4_opened * lock5_opened * lock6_opened == 6) {
+    if (lock1_opened * lock2_opened * lock3_opened * lock4_opened * lock5_opened * lock6_opened == 1) {
         let opened_storage = document.getElementById("opened-storage-block");
         let closed_storage = document.getElementById("closed-storage-block");
         opened_storage.style.display = "block";
